@@ -10,21 +10,21 @@ public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idOrder")
+    @Column(name = "idorder")
     private Integer idOrder;
 
     @ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser", nullable = false)
+    @JoinColumn(name = "iduser", referencedColumnName = "iduser", nullable = false)
     private AppUser appUser;
 
     @Column(name = "orderDate")
     private java.sql.Date orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "idStatus", referencedColumnName = "idStatus")
+    @JoinColumn(name = "idstatus", referencedColumnName = "idstatus")
     private Status status;
 
-    @Column(name = "phoneNumber", length = 20)
+    @Column(name = "phonenumber", length = 20)
     private String phoneNumber;
 
     @Column(name = "address", columnDefinition = "NVARCHAR(MAX)")

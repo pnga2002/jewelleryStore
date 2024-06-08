@@ -1,4 +1,5 @@
 create database jewelryStore
+use jewelryStore
 --STATUS
 CREATE TABLE Status (
     idStatus INT IDENTITY(1,1) PRIMARY KEY,

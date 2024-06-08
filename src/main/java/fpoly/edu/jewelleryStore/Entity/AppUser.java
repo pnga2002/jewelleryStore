@@ -10,7 +10,7 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUser")
+    @Column(name = "iduser")
     private Integer idUser;
 
     @Column(name = "username", nullable = false, length = 50)
@@ -25,7 +25,7 @@ public class AppUser {
     @Column(name = "role", length = 20)
     private String role;
 
-    @Column(name = "phoneNumber", length = 11)
+    @Column(name = "phonenumber", length = 11)
     private String phoneNumber;
 
     @Column(name = "address", columnDefinition = "NVARCHAR(MAX)")

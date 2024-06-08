@@ -10,15 +10,15 @@ public class CartDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCartDetail")
+    @Column(name = "idcartdetail")
     private Integer idCartDetail;
 
     @ManyToOne
-    @JoinColumn(name = "idCart", referencedColumnName = "idCart")
+    @JoinColumn(name = "idcart", referencedColumnName = "idcart")
     private Carts cart;
 
     @ManyToOne
-    @JoinColumn(name = "idProduct", referencedColumnName = "idProduct")
+    @JoinColumn(name = "idproduct", referencedColumnName = "idproduct")
     private Product product;
 
     @Column(name = "quantity")
