@@ -37,6 +37,6 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Override
     public List<CartDetail> findByCartIdAndUserId(Integer cartId, Integer userId) {
-        return cartDetailRepository.findByCart_IdAndCart_AppUser_IdUser(cartId, userId);
+        return cartDetailRepository.findByCart_IdCartAndCart_AppUser_IdUser(cartId, userId);
     }
 }
