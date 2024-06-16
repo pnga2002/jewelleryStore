@@ -3,9 +3,11 @@ package fpoly.edu.jewelleryStore.Service;
 import fpoly.edu.jewelleryStore.Entity.Carts;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 public interface CartService {
-    List<Carts> findAll();
-    Carts findById(Integer id);
-    Carts save(Carts cart);
-    void deleteById(Integer id);
+	ResponseEntity<List<Carts>> findAll();
+	ResponseEntity<Carts> findById(Integer id);
+	ResponseEntity<Carts> save(Carts cart);
+	ResponseEntity<Void> deleteById(Integer id);
 }

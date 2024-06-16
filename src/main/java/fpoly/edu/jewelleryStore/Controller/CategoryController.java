@@ -21,44 +21,28 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categories = categoryService.findAll();
-        return ResponseEntity.ok(categories);
+        return  categoryService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") Integer id) {
-        Category category = categoryService.findById(id);
-        if (category == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(category);
+        
+        return categoryService.findById(id);
     }
 
     @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category savedCategory = categoryService.save(category);
-        return ResponseEntity.ok(savedCategory);
+        return categoryService.save(category);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
-        Category existingCategory = categoryService.findById(id);
-        if (existingCategory == null) {
-            return ResponseEntity.notFound().build();
-        }
-        category.setIdCategory(id);
-        Category updatedCategory = categoryService.save(category);
-        return ResponseEntity.ok(updatedCategory);
+    	return categoryService.findById(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable("id") Integer id) {
-        Category existingCategory = categoryService.findById(id);
-        if (existingCategory == null) {
-            return ResponseEntity.notFound().build();
-        }
-        categoryService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return categoryService.deleteById(id);
     }
 
     // API phân trang
@@ -70,7 +54,6 @@ public class CategoryController {
 
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
-        Page<Category> categoryPage = categoryService.findPaginated(pageable);
-        return ResponseEntity.ok(categoryPage);
+        return categoryService.findPaginated(pageable);
     }
 }

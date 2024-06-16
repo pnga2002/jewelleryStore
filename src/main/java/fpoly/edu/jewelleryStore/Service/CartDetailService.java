@@ -1,12 +1,15 @@
 package fpoly.edu.jewelleryStore.Service;
 
+import fpoly.edu.jewelleryStore.Entity.AddCartVM;
 import fpoly.edu.jewelleryStore.Entity.CartDetail;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 public interface CartDetailService {
-    List<CartDetail> findAll();
-    CartDetail findById(Integer id);
-    CartDetail save(CartDetail cartDetail);
-    void deleteById(Integer id);
-    List<CartDetail> findByCartIdAndUserId(Integer cartId, Integer userId);
+    ResponseEntity<List<CartDetail>> findAll();
+    ResponseEntity<CartDetail> findById(Integer id);
+    ResponseEntity<CartDetail> save(AddCartVM model);
+    ResponseEntity<Void> deleteById(Integer id);
+    ResponseEntity<List<CartDetail>> findByUserId(Integer userId);
 }

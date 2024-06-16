@@ -1,6 +1,6 @@
 package fpoly.edu.jewelleryStore.Entity;
 
-import java.util.List;
+import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class Orders {
     private AppUser appUser;
 
     @Column(name = "orderdate")
-    private java.sql.Date orderDate;
+    private Date orderDate;
 
     @ManyToOne
     @JoinColumn(name = "idstatus", referencedColumnName = "idstatus")

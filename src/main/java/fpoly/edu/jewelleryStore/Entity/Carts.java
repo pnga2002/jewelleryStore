@@ -1,9 +1,9 @@
 package fpoly.edu.jewelleryStore.Entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.sql.Date;
 
 @Data
 @Entity

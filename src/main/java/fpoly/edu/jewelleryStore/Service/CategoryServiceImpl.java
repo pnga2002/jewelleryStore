@@ -5,6 +5,8 @@ import fpoly.edu.jewelleryStore.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,28 +19,38 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> findAll() {
+        List<Category> categories = categoryRepository.findAll();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @Override
-    public Category findById(Integer id) {
+    public ResponseEntity<Category> findById(Integer id) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
-        return optionalCategory.orElse(null);
+        return optionalCategory
+                .map(category -> new ResponseEntity<>(category, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Override
-    public Category save(Category category) {
-        return categoryRepository.save(category);
+    public ResponseEntity<Category> save(Category category) {
+        Category savedCategory = categoryRepository.save(category);
+        return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
     }
 
     @Override
-    public void deleteById(Integer id) {
-        categoryRepository.deleteById(id);
+    public ResponseEntity<Void> deleteById(Integer id) {
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override
-    public Page<Category> findPaginated(Pageable pageable) {
-        return categoryRepository.findAll(pageable);
+    public ResponseEntity<Page<Category>> findPaginated(Pageable pageable) {
+        Page<Category> categoriesPage = categoryRepository.findAll(pageable);
+        return new ResponseEntity<>(categoriesPage, HttpStatus.OK);
     }
 }

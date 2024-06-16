@@ -1,5 +1,6 @@
 package fpoly.edu.jewelleryStore.Controller;
 
+import fpoly.edu.jewelleryStore.Entity.AddCartVM;
 import fpoly.edu.jewelleryStore.Entity.CartDetail;
 import fpoly.edu.jewelleryStore.Service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,53 +18,33 @@ public class CartDetailController {
 
     @GetMapping
     public ResponseEntity<List<CartDetail>> getAllCartDetails() {
-        List<CartDetail> cartDetails = cartDetailService.findAll();
-        return ResponseEntity.ok(cartDetails);
+        return cartDetailService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CartDetail> getCartDetailById(@PathVariable("id") Integer id) {
-        CartDetail cartDetail = cartDetailService.findById(id);
-        if (cartDetail == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cartDetail);
+        return cartDetailService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity<CartDetail> createCartDetail(@RequestBody CartDetail cartDetail) {
-        CartDetail savedCartDetail = cartDetailService.save(cartDetail);
-        return ResponseEntity.ok(savedCartDetail);
+    public ResponseEntity<CartDetail> createCartDetail(@RequestBody AddCartVM savedCartDetail) {
+        return cartDetailService.save(savedCartDetail);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CartDetail> updateCartDetail(@PathVariable("id") Integer id, @RequestBody CartDetail cartDetail) {
-        CartDetail existingCartDetail = cartDetailService.findById(id);
-        if (existingCartDetail == null) {
-            return ResponseEntity.notFound().build();
-        }
-        cartDetail.setIdCartDetail(id);
-        CartDetail updatedCartDetail = cartDetailService.save(cartDetail);
-        return ResponseEntity.ok(updatedCartDetail);
-    }
+	/*
+	 * @PutMapping("/{id}") public ResponseEntity<CartDetail>
+	 * updateCartDetail(@PathVariable("id") Integer id, @RequestBody CartDetail
+	 * cartDetail) { return cartDetailService.save(cartDetail); }
+	 */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCartDetail(@PathVariable("id") Integer id) {
-        CartDetail existingCartDetail = cartDetailService.findById(id);
-        if (existingCartDetail == null) {
-            return ResponseEntity.notFound().build();
-        }
-        cartDetailService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return cartDetailService.deleteById(id);
     }
-    @GetMapping("/cart/{cartId}/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<CartDetail>> getCartDetailsByCartIdAndUserId(
-            @PathVariable("cartId") Integer cartId,
             @PathVariable("userId") Integer userId) {
-        List<CartDetail> cartDetails = cartDetailService.findByCartIdAndUserId(cartId, userId);
-        if (cartDetails.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(cartDetails);
+        
+        return cartDetailService.findByUserId(userId);
     }
 }

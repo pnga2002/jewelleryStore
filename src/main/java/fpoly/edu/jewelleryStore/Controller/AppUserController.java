@@ -1,6 +1,7 @@
 package fpoly.edu.jewelleryStore.Controller;
 
 import fpoly.edu.jewelleryStore.Entity.AppUser;
+import fpoly.edu.jewelleryStore.Entity.UserViewModel;
 import fpoly.edu.jewelleryStore.Service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,44 +23,27 @@ public class AppUserController {
 
     @GetMapping
     public ResponseEntity<List<AppUser>> getAllUsers() {
-        List<AppUser> users = userService.findAll();
-        return ResponseEntity.ok(users);
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AppUser> getUserById(@PathVariable("id") Integer id) {
-        AppUser user = userService.findById(id);
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(user);
+        return userService.findById(id);
     }
 
     @PostMapping
     public ResponseEntity<AppUser> createUser(@RequestBody AppUser appUser) {
-        AppUser savedUser = userService.save(appUser);
-        return ResponseEntity.ok(savedUser);
+        return userService.save(appUser);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AppUser> updateUser(@PathVariable("id") Integer id, @RequestBody AppUser appUser) {
-        AppUser existingUser = userService.findById(id);
-        if (existingUser == null) {
-            return ResponseEntity.notFound().build();
-        }
-        appUser.setIdUser(id);
-        AppUser updatedUser = userService.save(appUser);
-        return ResponseEntity.ok(updatedUser);
+        return userService.save(appUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
-        AppUser existingUser = userService.findById(id);
-        if (existingUser == null) {
-            return ResponseEntity.notFound().build();
-        }
-        userService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return userService.deleteById(id);
     }
 
     // API phân trang
@@ -70,7 +55,11 @@ public class AppUserController {
 
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
-        Page<AppUser> userPage = userService.findPaginated(pageable);
-        return ResponseEntity.ok(userPage);
+        return userService.findPaginated(pageable);
+    }
+    @PostMapping("/login")
+    public  ResponseEntity<Map<String, Object>> login(@RequestBody UserViewModel body) {
+ 
+        return userService.login(body);
     }
 }
