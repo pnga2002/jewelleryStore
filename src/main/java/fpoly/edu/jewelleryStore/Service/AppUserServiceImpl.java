@@ -1,7 +1,7 @@
 package fpoly.edu.jewelleryStore.Service;
 
 import fpoly.edu.jewelleryStore.Entity.AppUser;
-import fpoly.edu.jewelleryStore.Entity.UserViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.UserViewModel;
 import fpoly.edu.jewelleryStore.Repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

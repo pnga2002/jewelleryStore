@@ -1,7 +1,7 @@
 package fpoly.edu.jewelleryStore.Controller;
 
-import fpoly.edu.jewelleryStore.Entity.AddCartVM;
 import fpoly.edu.jewelleryStore.Entity.CartDetail;
+import fpoly.edu.jewelleryStore.EntityViewModel.AddCartVM;
 import fpoly.edu.jewelleryStore.Service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

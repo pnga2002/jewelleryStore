@@ -1,7 +1,7 @@
 package fpoly.edu.jewelleryStore.Controller;
 
 import fpoly.edu.jewelleryStore.Entity.OrderDetail;
-import fpoly.edu.jewelleryStore.Entity.OrderViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.OrderViewModel;
 import fpoly.edu.jewelleryStore.Service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -53,5 +53,9 @@ public class OrderDetailController {
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
         return orderDetailService.findPaginated(pageable);
+    }
+    @GetMapping("order/{id}")
+    public ResponseEntity<List<OrderDetail>> getOrderDetailByOrderId(@PathVariable("id") Integer id) {
+        return orderDetailService.findByOrderId(id);
     }
 }

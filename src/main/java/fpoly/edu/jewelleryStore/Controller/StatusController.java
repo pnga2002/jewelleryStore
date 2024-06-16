@@ -29,45 +29,28 @@ public class StatusController {
     private StatusService statusService;
 
     @GetMapping
-    public ResponseEntity<List<Status>> getAll() {
-        List<Status> res = statusService.findAll();
-        return ResponseEntity.ok(res);
+    public ResponseEntity<List<Status>> getAll() { 
+        return statusService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Status> getById(@PathVariable("id") Integer id) {
-    	Status res = statusService.findById(id);
-        if (res == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(res);
+        return statusService.findById(id);
     }
 
     @PostMapping
     public ResponseEntity<Status> create(@RequestBody Status status) {
-    	Status res = statusService.save(status);
-        return ResponseEntity.ok(res);
+        return statusService.save(status);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Status> update(@PathVariable("id") Integer id, @RequestBody Status status) {
-    	Status existingStatus = statusService.findById(id);
-        if (existingStatus == null) {
-            return ResponseEntity.notFound().build();
-        }
-        status.setIdStatus(id);
-        Status updatedStatus = statusService.save(status);
-        return ResponseEntity.ok(updatedStatus);
+        return statusService.save(status);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-        Status existingStatus = statusService.findById(id);
-        if (existingStatus == null) {
-            return ResponseEntity.notFound().build();
-        }
-        statusService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return statusService.deleteById(id);
     }
 
     // API phân trang
@@ -79,7 +62,6 @@ public class StatusController {
 
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
-        Page<Status> resPage = statusService.findPaginated(pageable);
-        return ResponseEntity.ok(resPage);
+        return statusService.findPaginated(pageable);
     }
 }

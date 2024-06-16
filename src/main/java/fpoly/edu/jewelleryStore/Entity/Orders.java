@@ -1,6 +1,7 @@
 package fpoly.edu.jewelleryStore.Entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;

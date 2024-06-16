@@ -1,4 +1,4 @@
-package fpoly.edu.jewelleryStore.Entity;
+package fpoly.edu.jewelleryStore.EntityViewModel;
 
 import lombok.Data;
 

@@ -2,10 +2,10 @@ package fpoly.edu.jewelleryStore.Service;
 
 import fpoly.edu.jewelleryStore.Entity.AppUser;
 import fpoly.edu.jewelleryStore.Entity.OrderDetail;
-import fpoly.edu.jewelleryStore.Entity.OrderViewModel;
 import fpoly.edu.jewelleryStore.Entity.Orders;
 import fpoly.edu.jewelleryStore.Entity.Product;
 import fpoly.edu.jewelleryStore.Entity.Status;
+import fpoly.edu.jewelleryStore.EntityViewModel.OrderViewModel;
 import fpoly.edu.jewelleryStore.Repository.AppUserRepository;
 import fpoly.edu.jewelleryStore.Repository.CartDetailRepository;
 import fpoly.edu.jewelleryStore.Repository.OrderDetailRepository;
@@ -110,4 +110,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         Page<OrderDetail> orderDetails = orderDetailRepository.findAll(pageable);
         return new ResponseEntity<>(orderDetails, HttpStatus.OK);
     }
+
+	@Override
+	public ResponseEntity<List<OrderDetail>> findByOrderId(Integer id) {
+		List<OrderDetail> lst = orderDetailRepository.findByOrder_IdOrder(id);
+		return new ResponseEntity<>(lst, HttpStatus.OK);
+	}
 }

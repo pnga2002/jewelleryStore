@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fpoly.edu.jewelleryStore.Entity.Orders;
+import fpoly.edu.jewelleryStore.EntityViewModel.ListOrderViewModel;
 import fpoly.edu.jewelleryStore.Service.OrderService;
 
 @RestController
@@ -29,44 +30,29 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<List<Orders>> getAllUsers() {
-        List<Orders> res = orderService.findAll();
-        return ResponseEntity.ok(res);
+        return orderService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Orders> getUserById(@PathVariable("id") Integer id) {
-    	Orders res = orderService.findById(id);
-        if (res == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(res);
+        return orderService.findById(id);
     }
 
     @PostMapping
     public ResponseEntity<Orders> createUser(@RequestBody Orders model) {
-    	Orders savedOrder = orderService.save(model);
-        return ResponseEntity.ok(savedOrder);
+        return orderService.save(model);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Orders> updateUser(@PathVariable("id") Integer id, @RequestBody Orders model) {
-    	Orders existing = orderService.findById(id);
-        if (existing == null) {
-            return ResponseEntity.notFound().build();
-        }
-        model.setIdOrder(id);
-        Orders updated = orderService.save(model);
-        return ResponseEntity.ok(updated);
+
+        return orderService.save(model);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
-    	Orders existingUser = orderService.findById(id);
-        if (existingUser == null) {
-            return ResponseEntity.notFound().build();
-        }
-        orderService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Integer id) {
+
+        return orderService.deleteById(id);
     }
 
     // API phân trang
@@ -78,16 +64,11 @@ public class OrderController {
 
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
-        Page<Orders> orderPage = orderService.findPaginated(pageable);
-        return ResponseEntity.ok(orderPage);
+        return orderService.findPaginated(pageable);
     }
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Orders>> getOrdersByUserId(@PathVariable("userId") Integer userId) {
-        List<Orders> orders = orderService.findByIdUser(userId);
-        if (orders.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(orders);
+    public ResponseEntity<List<ListOrderViewModel>> getOrdersByUserId(@PathVariable("userId") Integer userId) {
+        return orderService.findByIdUser(userId);
     }
 }
 

@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Integer> {
 //    List<OrderDetail> findByOrderUserIdUser(Integer idUser);
-//    List<OrderDetail> findByOrderUser_IdUser(Integer idUser);
+    List<OrderDetail> findByOrder_IdOrder(Integer idUser);
    
 }

@@ -4,19 +4,23 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import fpoly.edu.jewelleryStore.Entity.Orders;
+import fpoly.edu.jewelleryStore.EntityViewModel.ListOrderViewModel;
 
 public interface OrderService {
-	List<Orders> findAll();
+	ResponseEntity<List<Orders>> findAll();
 
-	Orders findById(Integer id);
+	ResponseEntity<Orders> findById(Integer id);
 
-	Orders save(Orders model);
+	ResponseEntity<Orders> save(Orders model);
 
-	void deleteById(Integer id);
+	ResponseEntity<String> deleteById(Integer id);
 
-	Page<Orders> findPaginated(Pageable pageable);
+	ResponseEntity<Page<Orders>> findPaginated(Pageable pageable);
 
-	List<Orders> findByIdUser(Integer idUser);
+	ResponseEntity<List<ListOrderViewModel>> findByIdUser(Integer idUser);
+
+	
 }

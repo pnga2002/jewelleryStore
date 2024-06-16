@@ -1,10 +1,10 @@
 package fpoly.edu.jewelleryStore.Service;
 
-import fpoly.edu.jewelleryStore.Entity.AddCartVM;
 import fpoly.edu.jewelleryStore.Entity.AppUser;
 import fpoly.edu.jewelleryStore.Entity.CartDetail;
 import fpoly.edu.jewelleryStore.Entity.Carts;
 import fpoly.edu.jewelleryStore.Entity.Product;
+import fpoly.edu.jewelleryStore.EntityViewModel.AddCartVM;
 import fpoly.edu.jewelleryStore.Repository.AppUserRepository;
 import fpoly.edu.jewelleryStore.Repository.CartDetailRepository;
 import fpoly.edu.jewelleryStore.Repository.CartRepository;

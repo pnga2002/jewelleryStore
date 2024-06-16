@@ -1,7 +1,7 @@
 package fpoly.edu.jewelleryStore.Service;
 
 import fpoly.edu.jewelleryStore.Entity.AppUser;
-import fpoly.edu.jewelleryStore.Entity.UserViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.UserViewModel;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
