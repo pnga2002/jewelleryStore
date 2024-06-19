@@ -22,44 +22,29 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.findAll();
-        return ResponseEntity.ok(products);
+        return productService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id) {
-        Product product = productService.findById(id);
-        if (product == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(product);
+        return productService.findById(id);
     }
 
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product savedProduct = productService.save(product);
-        return ResponseEntity.ok(savedProduct);
+        return productService.save(product);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable("id") Integer id, @RequestBody Product product) {
-        Product existingProduct = productService.findById(id);
-        if (existingProduct == null) {
-            return ResponseEntity.notFound().build();
-        }
-        product.setIdProduct(id);
-        Product updatedProduct = productService.save(product);
-        return ResponseEntity.ok(updatedProduct);
+
+        return productService.save(product);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable("id") Integer id) {
-        Product existingProduct = productService.findById(id);
-        if (existingProduct == null) {
-            return ResponseEntity.notFound().build();
-        }
-        productService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    	return productService.deleteById(id);
+       
     }
     // API phân trang
     @GetMapping("/page")
@@ -70,7 +55,11 @@ public class ProductController {
 
         Sort.Direction direction = Sort.Direction.fromString(sort[1]);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort[0]));
-        Page<Product> productPage = productService.findPaginated(pageable);
-        return ResponseEntity.ok(productPage);
+        return productService.findPaginated(pageable);
     }
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<Product>> getProductByIdCate(@PathVariable("id") Integer id) {
+        return productService.findByIdCaategory(id);
+    }
+
 }

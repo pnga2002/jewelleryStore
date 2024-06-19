@@ -1,16 +1,20 @@
 package fpoly.edu.jewelleryStore.Service;
 
+import fpoly.edu.jewelleryStore.Entity.Orders;
 import fpoly.edu.jewelleryStore.Entity.Product;
 
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 public interface ProductService {
-    List<Product> findAll();
-    Product findById(Integer id);
-    Product save(Product product);
-    void deleteById(Integer id);
-    Page<Product> findPaginated(Pageable pageable);
+    ResponseEntity<List<Product>> findAll();
+    ResponseEntity<Product> findById(Integer id);
+    ResponseEntity<Product> save(Product product);
+    ResponseEntity<Void> deleteById(Integer id);
+    ResponseEntity<Page<Product>> findPaginated(Pageable pageable);
+
+    ResponseEntity<List<Product>> findByIdCaategory(Integer id);
 }
