@@ -37,7 +37,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable("id") Integer id, @RequestBody Category category) {
-    	return categoryService.findById(id);
+    	return categoryService.save(category);
     }
 
     @DeleteMapping("/{id}")
