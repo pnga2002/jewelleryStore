@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import fpoly.edu.jewelleryStore.Entity.OrderDetail;
 import fpoly.edu.jewelleryStore.Entity.Orders;
+import fpoly.edu.jewelleryStore.Entity.Status;
 import fpoly.edu.jewelleryStore.EntityViewModel.ListOrderViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.UpdateStatusOrder;
 import fpoly.edu.jewelleryStore.Repository.OrderDetailRepository;
 import fpoly.edu.jewelleryStore.Repository.OrderRepository;
 
@@ -113,4 +115,18 @@ public class OrderServiceImpl implements OrderService {
                 .map(detail -> detail.getPrice() * detail.getQuantity())
                 .reduce(0.0f, Float::sum);
     }
+
+	@Override
+	public ResponseEntity<String> updateStatusOrder(UpdateStatusOrder model) {
+		Orders or = orderRepository.findByIdOrder(model.idOrder);
+		if(or==null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		Status st = new Status();
+		st.setIdStatus(model.idStatus);
+		or.setStatus(st);
+		orderRepository.save(or);
+		
+		return new ResponseEntity<>("Cập nhật thành công", HttpStatus.OK);
+	}
 }

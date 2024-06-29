@@ -13,4 +13,5 @@ import fpoly.edu.jewelleryStore.Entity.Orders;
 public interface OrderRepository extends JpaRepository<Orders, Integer> {
 	@Query("SELECT o FROM Orders o WHERE o.appUser.idUser = :userId ORDER BY o.idOrder")
     List<Orders> findByUserIdOrderByOrderId(Integer userId);
+	Orders findByIdOrder(int id);
 }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fpoly.edu.jewelleryStore.Entity.Orders;
 import fpoly.edu.jewelleryStore.EntityViewModel.ListOrderViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.UpdateStatusOrder;
 import fpoly.edu.jewelleryStore.Service.OrderService;
 
 @RestController
@@ -69,6 +70,10 @@ public class OrderController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<ListOrderViewModel>> getOrdersByUserId(@PathVariable("userId") Integer userId) {
         return orderService.findByIdUser(userId);
+    } 
+    @PutMapping("/update")
+    public ResponseEntity<String> updateStatusOrder(@RequestBody UpdateStatusOrder model) {
+        return orderService.updateStatusOrder(model);
     }
 }
 

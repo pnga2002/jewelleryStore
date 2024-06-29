@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import fpoly.edu.jewelleryStore.Entity.Orders;
 import fpoly.edu.jewelleryStore.EntityViewModel.ListOrderViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.UpdateStatusOrder;
 
 public interface OrderService {
 	ResponseEntity<List<Orders>> findAll();
@@ -22,5 +23,6 @@ public interface OrderService {
 
 	ResponseEntity<List<ListOrderViewModel>> findByIdUser(Integer idUser);
 
+	ResponseEntity<String> updateStatusOrder(UpdateStatusOrder model);
 	
 }
