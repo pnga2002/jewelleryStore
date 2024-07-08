@@ -3,6 +3,8 @@ package fpoly.edu.jewelleryStore.Service;
 import fpoly.edu.jewelleryStore.Entity.AppUser;
 import fpoly.edu.jewelleryStore.EntityViewModel.UserViewModel;
 import fpoly.edu.jewelleryStore.Repository.AppUserRepository;
+import fpoly.edu.jewelleryStore.Util.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,7 +64,9 @@ public class AppUserServiceImpl implements AppUserService {
         AppUser user = userRepository.findByUsername(model.getUsername());
         Map<String, Object> response = new HashMap<>();
         if (user != null && user.getPassword().equals(model.getPassword())) {
+            String token = JwtUtil.generateToken(user.getUsername());
             response.put("message", "Login successful");
+            response.put("token", token);
             response.put("infor", user);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } else {

@@ -1,54 +1,59 @@
 package fpoly.edu.jewelleryStore.Util;
 
-import java.util.Base64;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.Date;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import fpoly.edu.jewelleryStore.Entity.AppUser;
-
+import fpoly.edu.jewelleryStore.Repository.AppUserRepository;
 @Component
 public class JwtUtil {
-
-    private final ObjectMapper objectMapper;
-
-    public JwtUtil(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    private static final String SECRET_KEY = "jK5eK/BP5ZJY4aRqlG8nXzLHP9H1vfl5o1KDmU4kfcs=";
+    @Autowired
+    private AppUserRepository userRepository;
+    
+    public static String generateToken(String username) {
+        return Jwts.builder()
+                .setSubject(username)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 1 day expiration
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
     }
-
-    public String generateToken(AppUser model) {
+    public static Claims decodeToken(String token) {
         try {
-            // Convert object to JSON string
-            String jsonString = objectMapper.writeValueAsString(model);
-
-            // Encode JSON string to Base64
-            String encodedString = Base64.getEncoder().encodeToString(jsonString.getBytes());
-
-            // Return encoded string
-            return encodedString;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return "";
+            return Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid token", e);
         }
     }
+    public AppUser getUserFromToken(String token) {
+        Claims claims = decodeToken(token);
+        String username = claims.getSubject();
+        return userRepository.findByUsername(username);
+    }
+    public ResponseEntity<?> checkUserPermission(Map<String, String> headers, String requiredRole) {
+        if (headers.containsKey("token")) {
+            String token = headers.get("token").replace("Bearer ", "");
+            AppUser user = getUserFromToken(token);
 
-    public AppUser decode(String token) {
-        try {
-            // Decode Base64 encoded string
-            byte[] decodedBytes = Base64.getDecoder().decode(token);
-            String decodedString = new String(decodedBytes);
-
-            // Convert JSON string to object
-            return objectMapper.readValue(decodedString, AppUser.class);
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
+            if (user != null && requiredRole.equalsIgnoreCase(user.getRole())) {
+                return ResponseEntity.ok(user);
+            }
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

@@ -3,11 +3,14 @@ package fpoly.edu.jewelleryStore.Controller;
 import fpoly.edu.jewelleryStore.Entity.AppUser;
 import fpoly.edu.jewelleryStore.EntityViewModel.UserViewModel;
 import fpoly.edu.jewelleryStore.Service.AppUserService;
+import fpoly.edu.jewelleryStore.Util.JwtUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +23,8 @@ public class AppUserController {
 
     @Autowired
     private AppUserService userService;
-
+    @Autowired
+    private JwtUtil jwtUtil;
     @GetMapping
     public ResponseEntity<List<AppUser>> getAllUsers() {
         return userService.findAll();
@@ -42,8 +46,12 @@ public class AppUserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id) {
-        return userService.deleteById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer id,@RequestHeader Map<String, String> headers) {
+    	ResponseEntity<?> response = jwtUtil.checkUserPermission(headers, "admin");
+        if (response.getStatusCode() == HttpStatus.OK) {
+       	 return userService.deleteById(id);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     // API phân trang
