@@ -70,4 +70,22 @@ public class AppUserController {
  
         return userService.login(body);
     }
+    @PostMapping("/checkPass")
+    public  ResponseEntity<Integer> checkPass (@RequestBody String pass,@RequestHeader Map<String, String> headers ) {
+    	 if (headers.containsKey("token")) {
+             String token = headers.get("token").replace("Bearer ", "");
+             AppUser user = jwtUtil.getUserFromToken(token);
+             return userService.checkPass(pass,user);
+         }
+    	 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+    @PostMapping("/changePass")
+    public  ResponseEntity<Integer> changePass (@RequestBody String pass,@RequestHeader Map<String, String> headers ) {
+    	 if (headers.containsKey("token")) {
+             String token = headers.get("token").replace("Bearer ", "");
+             AppUser user = jwtUtil.getUserFromToken(token);
+             return userService.changePass(pass,user);
+         }
+    	 return new ResponseEntity<>(HttpStatus.FORBIDDEN	);
+    }
 }

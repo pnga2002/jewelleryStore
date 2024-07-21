@@ -74,4 +74,21 @@ public class AppUserServiceImpl implements AppUserService {
             return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
         }
     }
+
+	@Override
+	public ResponseEntity<Integer> changePass(String newPass, AppUser user) {
+		// TODO Auto-generated method stub
+		user.setPassword(newPass);
+		AppUser savedUser = userRepository.save(user);
+		return new ResponseEntity<>(1, HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<Integer> checkPass(String pass,AppUser user) {
+		// TODO Auto-generated method stub
+		if(pass.equals(user.getPassword())) {
+			return new ResponseEntity<>(1, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(0, HttpStatus.OK);
+	}
 }

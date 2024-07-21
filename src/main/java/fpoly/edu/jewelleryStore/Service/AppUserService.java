@@ -17,4 +17,6 @@ public interface AppUserService {
 	ResponseEntity<Void> deleteById(Integer id);
 	ResponseEntity<Page<AppUser>> findPaginated(Pageable pageable); // Thêm phương thức này
 	ResponseEntity<Map<String, Object>> login (UserViewModel model);
+	ResponseEntity<Integer> changePass(String newPass,AppUser user);
+	ResponseEntity<Integer> checkPass(String pass,AppUser user);
 }
