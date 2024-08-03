@@ -23,7 +23,12 @@ public class CategoryController {
     public ResponseEntity<List<Category>> getAllCategories() {
         return  categoryService.findAll();
     }
-
+    @GetMapping("search")
+    public ResponseEntity<List<Category>> getSearchCategories(String key) {
+        if(key.isEmpty()) {
+        	return  categoryService.findAll();
+        }return  categoryService.findSearch(key);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable("id") Integer id) {
         

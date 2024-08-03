@@ -14,4 +14,5 @@ public interface StatusService {
     ResponseEntity<Status> save(Status status);
     ResponseEntity<Void> deleteById(Integer id);
     ResponseEntity<Page<Status>> findPaginated(Pageable pageable);
+    ResponseEntity<List<Status>> findSearch(String key);
 }

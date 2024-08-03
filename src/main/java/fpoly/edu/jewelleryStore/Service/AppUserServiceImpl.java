@@ -91,4 +91,10 @@ public class AppUserServiceImpl implements AppUserService {
 		}
 		return new ResponseEntity<>(0, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<List<AppUser>> findSearch(String key) {
+		List<AppUser> users = userRepository.findByKey(key);
+        return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 }

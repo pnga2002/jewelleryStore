@@ -65,4 +65,10 @@ public class ProductServiceImpl implements ProductService {
 		}
 		 return new ResponseEntity<>(pro, HttpStatus.OK);
 	}
+
+	@Override
+	public ResponseEntity<List<Product>> findSearch(String key) {
+		List<Product> pro = productRepository.findByKey(key); 
+		 return new ResponseEntity<>(pro, HttpStatus.OK);
+	}
 }

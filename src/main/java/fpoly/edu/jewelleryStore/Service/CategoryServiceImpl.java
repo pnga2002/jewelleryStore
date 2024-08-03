@@ -53,4 +53,10 @@ public class CategoryServiceImpl implements CategoryService {
         Page<Category> categoriesPage = categoryRepository.findAll(pageable);
         return new ResponseEntity<>(categoriesPage, HttpStatus.OK);
     }
+
+	@Override
+	public ResponseEntity<List<Category>> findSearch(String key) {
+		List<Category> categories = categoryRepository.findByKey(key);
+        return new ResponseEntity<>(categories, HttpStatus.OK); 
+	}
 }

@@ -38,7 +38,10 @@ public class StatusController {
     public ResponseEntity<List<Status>> getAll() { 
         return statusService.findAll();
     }
-
+    @GetMapping("search")
+    public ResponseEntity<List<Status>> getSearch(String key) { 
+        return statusService.findSearch(key);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Status> getById(@PathVariable("id") Integer id) {
         return statusService.findById(id);

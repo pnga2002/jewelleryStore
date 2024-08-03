@@ -101,6 +101,7 @@ public class OrderServiceImpl implements OrderService {
     private ListOrderViewModel convertToListOrderViewModel(Orders order, List<OrderDetail> orderDetails) {
         ListOrderViewModel viewModel = new ListOrderViewModel();
         viewModel.idOrder = order.getIdOrder();
+        viewModel.thanhToan = order.getThanhToan();
         viewModel.appUser = order.getAppUser();
         viewModel.orderDate = order.getOrderDate();
         viewModel.status = order.getStatus();

@@ -12,5 +12,6 @@ public class ListOrderViewModel {
 	public Status status;
 	public String phoneNumber;
 	public String address;
+	public String thanhToan;
 	public Float total;
 }

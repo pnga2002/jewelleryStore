@@ -13,4 +13,6 @@ public interface CategoryService {
 	ResponseEntity<Category> save(Category category);
 	ResponseEntity<Void> deleteById(Integer id);
 	ResponseEntity<Page<Category>> findPaginated(Pageable pageable);
+
+	ResponseEntity<List<Category>> findSearch(String key);
 }

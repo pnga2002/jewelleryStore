@@ -26,8 +26,10 @@ public class AppUserController {
     @Autowired
     private JwtUtil jwtUtil;
     @GetMapping
-    public ResponseEntity<List<AppUser>> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<AppUser>> getAllUsers(String key) {
+        if(key.isEmpty()) {
+        	return userService.findAll();
+        }return userService.findSearch(key);
     }
 
     @GetMapping("/{id}")

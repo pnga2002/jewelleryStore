@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,5 +16,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Product findByIdProduct(int id);
 //	@Query(value = "SELECT * FROM product p WHERE p.category.idcategory = :id", nativeQuery = true)
     List<Product> findByCategoryIdCategory(int id);
+    @Query(value = "SELECT * FROM product WHERE name LIKE CONCAT('%', :key, '%')", nativeQuery = true)
+    List<Product> findByKey(@Param("key") String key);
+
 }
 

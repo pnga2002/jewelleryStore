@@ -76,4 +76,14 @@ public class StatusServiceImpl implements StatusService {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+	@Override
+	public ResponseEntity<List<Status>> findSearch(String key) {
+		 try {
+			 List<Status> statuses = statusRepository.findByKey(key);
+	            return new ResponseEntity<>(statuses, HttpStatus.CREATED);
+	        } catch (Exception e) {
+	            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	        }
+	}
 }

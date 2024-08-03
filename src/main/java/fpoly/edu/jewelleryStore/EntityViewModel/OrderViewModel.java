@@ -7,6 +7,7 @@ public class OrderViewModel {
 	public String status;
 	public String phoneNumber;
 	public String address;
+	public String thanhToan;
 	public List<ProductQuantity> product;
 	
 	public static class ProductQuantity {

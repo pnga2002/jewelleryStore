@@ -30,7 +30,10 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts() {
         return productService.findAll();
     }
-
+    @GetMapping("search")
+    public ResponseEntity<List<Product>> getAllProductsSearch(String key) {
+        return productService.findSearch(key);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") Integer id) {
         return productService.findById(id);

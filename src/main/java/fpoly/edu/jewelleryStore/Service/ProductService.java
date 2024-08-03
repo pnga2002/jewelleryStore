@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProductService {
     ResponseEntity<List<Product>> findAll();
+    ResponseEntity<List<Product>> findSearch(String key);
     ResponseEntity<Product> findById(Integer id);
     ResponseEntity<Product> save(Product product);
     ResponseEntity<Void> deleteById(Integer id);

@@ -19,4 +19,6 @@ public interface AppUserService {
 	ResponseEntity<Map<String, Object>> login (UserViewModel model);
 	ResponseEntity<Integer> changePass(String newPass,AppUser user);
 	ResponseEntity<Integer> checkPass(String pass,AppUser user);
+
+	ResponseEntity<List<AppUser>> findSearch(String key);
 }

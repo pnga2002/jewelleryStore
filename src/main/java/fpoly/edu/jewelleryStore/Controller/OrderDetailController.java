@@ -2,6 +2,7 @@ package fpoly.edu.jewelleryStore.Controller;
 
 import fpoly.edu.jewelleryStore.Entity.OrderDetail;
 import fpoly.edu.jewelleryStore.EntityViewModel.OrderViewModel;
+import fpoly.edu.jewelleryStore.EntityViewModel.ThanhToanViewModel;
 import fpoly.edu.jewelleryStore.Service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,10 @@ public class OrderDetailController {
         return orderDetailService.save(orderDetail);
     }
 
-    
+    @PostMapping("thanhToan")
+    public ResponseEntity<String> createOrderDetailThanhToan(@RequestBody ThanhToanViewModel orderDetail) throws IOException {
+        return orderDetailService.payPackage(orderDetail);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrderDetail(@PathVariable("id") Integer id) {
